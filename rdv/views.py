@@ -351,6 +351,13 @@ class RDVApiDetails(APIView):
         data = request.data
         rdv = RendezVous.objects.filter(pk=id)
         if rdv.exists():
+            if(request.POST.get("edl",None) is not None):
+                rdv = rdv.first()
+                rdv.edl = "1"
+                rdv.save()
+                rdv = RendezVous.objects.filter(pk=id)
+                serializer = RendezVousSerializer(rdv,many=True)
+                return Response(serializer.data, status = status.HTTP_200_OK)
             rdv = rdv.first()
             propriete = rdv.propriete
             locataire = rdv.propriete.locataire

@@ -51,6 +51,7 @@ class TypeIntervention(models.Model):
     updated_at = models.DateTimeField("Date de modification", auto_now_add=True)
 
 class RendezVous(models.Model):
+    edl = models.CharField('edl',max_length=10,default="0")
     ref_lot = models.CharField('ref lot', max_length=100, null=True)
     ref_rdv_edl = models.CharField('reference rendez-vous EDL',max_length=100,null=True)
     intervention = models.ForeignKey(TypeIntervention,on_delete=models.CASCADE,null=True,related_name="type_intervention")
